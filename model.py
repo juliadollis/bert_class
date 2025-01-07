@@ -205,3 +205,10 @@ class BertForSequenceClassification(nn.Module):
         if labels is not None:
             loss = F.cross_entropy(logits, labels)
         return logits, loss
+
+    def configure_optimizers(self, train_config):
+        return torch.optim.AdamW(self.parameters(),
+                                 lr=train_config.learning_rate,
+                                 betas=train_config.betas,
+                                 weight_decay=train_config.weight_decay)
+
